@@ -47,7 +47,12 @@ jobs:
             --image redis:${{ github.event.inputs.redis_version }} \
             --force
 
-      # 4. Automated NGINX Ingress installation
-      - name: Install NGINX Ingress Controller
+      # 4. Network-to-network direct import Ingress NGINX
+      - name: Import NGINX Ingress Controller to ACR
         run: |
-          kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.15.1/deploy/static/provider/cloud/deploy.yaml
+          az acr import \
+            --name ${{ env.AZURE_CONTAINER_REGISTRY }} \
+            --resource-group ${{ env.RESOURCE_GROUP }} \
+            --source registry.k8s.io/ingress-nginx/controller:v1.15.1 \
+            --image ingress-nginx/controller:v1.10.1 \
+            --force
