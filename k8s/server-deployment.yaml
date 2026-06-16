@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: server
-          image: mysc-d-ase-img-cr.azurecr.io/server:$IMAGE_TAG
+          image: myscdaseimgcr.azurecr.io/server:$IMAGE_TAG
           ports:
             - containerPort: 5000
           env:

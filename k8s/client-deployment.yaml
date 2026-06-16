@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
         - name: client
-          image: mysc-d-ase-img-cr.azurecr.io/client:$IMAGE_TAG
+          image: myscdaseimgcr.azurecr.io/client:$IMAGE_TAG
           ports:
             - containerPort: 3000

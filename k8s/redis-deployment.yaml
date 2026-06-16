@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: redis
-          image: mysc-d-ase-img-cr.azurecr.io/redis:7.2-alpine
+          image: myscdaseimgcr.azurecr.io/redis:7.2-alpine
           ports:
             - containerPort: 6379
           resources:

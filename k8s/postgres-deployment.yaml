@@ -18,7 +18,7 @@ spec:
             claimName: database-persistent-volume-claim
       containers:
         - name: postgres
-          image: mysc-d-ase-img-cr.azurecr.io/postgres:15-alpine
+          image: myscdaseimgcr.azurecr.io/postgres:15-alpine
           ports:
             - containerPort: 5432
           volumeMounts:
