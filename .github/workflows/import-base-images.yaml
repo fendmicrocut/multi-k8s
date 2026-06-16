@@ -1,4 +1,4 @@
-name: Import Third-Party Base Images to ACR
+name: Import Third-Party Base Images to ACR & Setup Ingress
 
 # Enables manual execution via the GitHub Actions UI button
 on:
@@ -46,3 +46,8 @@ jobs:
             --source docker.io/library/redis:${{ github.event.inputs.redis_version }} \
             --image redis:${{ github.event.inputs.redis_version }} \
             --force
+
+      # 4. Automated NGINX Ingress installation
+      - name: Install NGINX Ingress Controller
+        run: |
+          kubectl apply -f https://githubusercontent.com
