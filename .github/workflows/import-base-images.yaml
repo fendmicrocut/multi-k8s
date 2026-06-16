@@ -50,4 +50,4 @@ jobs:
       # 4. Automated NGINX Ingress installation
       - name: Install NGINX Ingress Controller
         run: |
-          kubectl apply -f https://githubusercontent.com
+          kubectl apply -f https://raw.githubusercontent.com
