@@ -41,13 +41,13 @@ jobs:
         include:
           - service: client
             folder: client
-            should_run: ${{ needs.detect-changes.outputs.client }}
+            should_run: 'true'
           - service: server
             folder: server
-            should_run: ${{ needs.detect-changes.outputs.server }}
+            should_run: 'true'
           - service: worker
             folder: worker
-            should_run: ${{ needs.detect-changes.outputs.worker }}
+            should_run: 'true'
     
     steps:
       - name: Checkout Source Code
