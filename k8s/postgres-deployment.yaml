@@ -18,7 +18,7 @@ spec:
             claimName: database-persistent-volume-claim
       containers:
         - name: postgres
-          image: udemydemoregistry.azurecr.io/postgres:15-alpine
+          image: mysc-d-ase-img-cr.azurecr.io/postgres:15-alpine
           ports:
             - containerPort: 5432
           volumeMounts:
@@ -27,7 +27,11 @@ spec:
               subPath: postgres
           env:
             - name: POSTGRES_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: pgpassword
-                  key: PGPASSWORD
+              value: "$PG_PASSWORD" # envsubst swaps this with your GitHub Secret
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "100m"
+            limits:
+              memory: "512Mi"   # Prevents OOM crashes on your 4GB node
+              cpu: "500m"

@@ -1,0 +1,48 @@
+name: Import Third-Party Base Images to ACR
+
+# Enables manual execution via the GitHub Actions UI button
+on:
+  workflow_dispatch:
+    inputs:
+      postgres_version:
+        description: 'Postgres Image Tag from Docker Hub'
+        required: true
+        default: '15-alpine'
+      redis_version:
+        description: 'Redis Image Tag from Docker Hub'
+        required: true
+        default: '7.2-alpine'
+
+env:
+  RESOURCE_GROUP: "mysc-d-ase-k8s-rg"     # Azure Resource Group name
+  ACR_HOST: "myscdaseimgcr"           # ACR HOST without '.azurecr.io'
+
+jobs:
+  import-images:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Authenticate securely with Azure
+      - name: Azure Login
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      # 2. Network-to-network direct import for PostgreSQL
+      - name: Import PostgreSQL Image
+        run: |
+          az acr import \
+            --name ${{ env.ACR_HOST }}.azurecr.io \
+            --resource-group ${{ env.RESOURCE_GROUP }} \
+            --source docker.io/library/postgres:${{ github.event.inputs.postgres_version }} \
+            --image postgres:${{ github.event.inputs.postgres_version }} \
+            --force
+
+      # 3. Network-to-network direct import for Redis
+      - name: Import Redis Image
+        run: |
+          az acr import \
+            --name ${{ env.ACR_HOST }}.azurecr.io \
+            --resource-group ${{ env.RESOURCE_GROUP }} \
+            --source docker.io/library/redis:${{ github.event.inputs.redis_version }} \
+            --image redis:${{ github.event.inputs.redis_version }} \
+            --force
