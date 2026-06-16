@@ -51,8 +51,8 @@ jobs:
       - name: Import NGINX Ingress Controller to ACR
         run: |
           az acr import \
-            --name ${{ env.AZURE_CONTAINER_REGISTRY }} \
+            --name ${{ env.ACR_HOST }} \
             --resource-group ${{ env.RESOURCE_GROUP }} \
             --source registry.k8s.io/ingress-nginx/controller:v1.15.1 \
-            --image ingress-nginx/controller:v1.10.1 \
+            --image ingress-nginx/controller:v1.15.1 \
             --force
