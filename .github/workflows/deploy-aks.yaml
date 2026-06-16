@@ -39,7 +39,6 @@ jobs:
     strategy:
       matrix:
         include:
-	        # Custom Images
           - service: client
             folder: client
             should_run: ${{ needs.detect-changes.outputs.client }}
